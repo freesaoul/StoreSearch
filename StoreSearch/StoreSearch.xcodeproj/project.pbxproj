@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8BD5A5D91B57AB6100C16915 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BD5A5D81B57AB6100C16915 /* LoadingCell.xib */; };
 		8BEB74601B566DD2002A73F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEB745F1B566DD2002A73F5 /* AppDelegate.swift */; };
 		8BEB74621B566DD2002A73F5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEB74611B566DD2002A73F5 /* SearchViewController.swift */; };
 		8BEB74651B566DD2002A73F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BEB74631B566DD2002A73F5 /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8BD5A5D81B57AB6100C16915 /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		8BEB745A1B566DD2002A73F5 /* StoreSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BEB745E1B566DD2002A73F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BEB745F1B566DD2002A73F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				8BEB74631B566DD2002A73F5 /* Main.storyboard */,
 				8BEB74861B569EE5002A73F5 /* SearchResultCell.xib */,
 				8BEB748A1B56A5A2002A73F5 /* NothingFoundCell.xib */,
+				8BD5A5D81B57AB6100C16915 /* LoadingCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 			files = (
 				8BEB74651B566DD2002A73F5 /* Main.storyboard in Resources */,
 				8BEB746A1B566DD2002A73F5 /* LaunchScreen.xib in Resources */,
+				8BD5A5D91B57AB6100C16915 /* LoadingCell.xib in Resources */,
 				8BEB74871B569EE5002A73F5 /* SearchResultCell.xib in Resources */,
 				8BEB748B1B56A5A2002A73F5 /* NothingFoundCell.xib in Resources */,
 				8BEB74671B566DD2002A73F5 /* Images.xcassets in Resources */,
@@ -451,6 +455,7 @@
 				8BEB747B1B566DD2002A73F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8BEB747C1B566DD2002A73F5 /* Build configuration list for PBXNativeTarget "StoreSearchTests" */ = {
 			isa = XCConfigurationList;
@@ -459,6 +464,7 @@
 				8BEB747E1B566DD2002A73F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
