@@ -15,6 +15,7 @@ class SearchViewController: UIViewController {
     var searchResults = [SearchResult]()
     var hasSearched =   false
     var isLoading =     false
+    var dataTask:       NSURLSessionDataTask?
     
     
 // MARK: - Constant
@@ -244,17 +245,19 @@ extension SearchViewController: UISearchBarDelegate {
             searchResults = [SearchResult]()
             
             isLoading = true
+            dataTask?.cancel()
             tableView.reloadData()
         
             let url = self.urlWithSearchText(searchBar.text)
             
             let session = NSURLSession.sharedSession()
             
-            let dataTask = session.dataTaskWithURL(url, completionHandler: {
+            dataTask = session.dataTaskWithURL(url, completionHandler: {
                 data, response, error in
                 
                 if let error = error {
                     println("Failure! \(error)")
+                    if error.code == -999 {return}
                 } else if let httpResponse = response as? NSHTTPURLResponse {
                     if httpResponse.statusCode == 200 {
                         if let dictionary = self.parseJSON(data) {
@@ -262,10 +265,8 @@ extension SearchViewController: UISearchBarDelegate {
                             self.searchResults.sort(<)
                             
                             dispatch_async(dispatch_get_main_queue()) {
-                                //self.hasSearched = false
                                 self.isLoading = false
                                 self.tableView.reloadData()
-                                //self.showNetworkError()
                             }
                             return
                         }
@@ -273,8 +274,14 @@ extension SearchViewController: UISearchBarDelegate {
                         println("Failure! \(response)")
                     }
                 }
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.isLoading = false
+                    self.hasSearched = false
+                    self.tableView.reloadData()
+                    self.showNetworkError()
+                }
             })
-            dataTask.resume()
+            dataTask?.resume()
         }
     }
     
@@ -293,7 +300,6 @@ extension SearchViewController: UITableViewDataSource {
         if isLoading {
             return 1
         } else if !hasSearched {
-            println("test")
             return 0
         }
         else if searchResults.count == 0 {
