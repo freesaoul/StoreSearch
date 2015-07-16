@@ -59,7 +59,6 @@ class SearchResultCell: UITableViewCell {
         nameLabel.text = nil
         artistNameLabel.text = nil
         artworkImageView.image = nil
-        println("prepareForReuse")
     }
     
     
