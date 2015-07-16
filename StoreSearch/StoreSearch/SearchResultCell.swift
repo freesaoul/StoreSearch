@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class SearchResultCell: UITableViewCell {
 
 // MARK: - IBOutlet

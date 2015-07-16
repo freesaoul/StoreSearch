@@ -99,8 +99,16 @@ class SearchViewController: UIViewController {
                         switch wrapperType {
                             case "track":
                                 searchResult = parseTrack(resultDic)
+                            case "audiobook":
+                                searchResult = parseAudioBook(resultDic)
+                            case "software":
+                                searchResult = parseSoftware(resultDic)
                             default:
                                 break
+                        }
+                    } else if let kind = resultDic["kind"] as? String {
+                        if kind == "ebook" {
+                            searchResult = parseEBook(resultDic)
                         }
                     }
                     
@@ -136,6 +144,72 @@ class SearchViewController: UIViewController {
         }
         if let genre = dictionary["primaryGenreName"] as? String {
             searchResult.genre = genre
+        }
+        
+        return searchResult
+    }
+    
+    
+    func parseAudioBook(dictionary: [String: AnyObject]) -> SearchResult {
+        let searchResult = SearchResult()
+        
+        searchResult.name = dictionary["collectionName"] as! String
+        searchResult.artistName = dictionary["artistName"] as! String
+        searchResult.artworkURL60 = dictionary["artworkUrl60"] as! String
+        searchResult.artworkURL100 = dictionary["artworkUrl100"] as! String
+        searchResult.storeURL = dictionary["collectionViewUrl"] as! String
+        searchResult.kind = "audiobook"
+        searchResult.currency = dictionary["currency"] as! String
+        
+        if let price = dictionary["collectionPrice"] as? Double {
+            searchResult.price = price
+        }
+        if let genre = dictionary["primaryGenreName"] as? String {
+            searchResult.genre = genre
+        }
+        
+        return searchResult
+    }
+    
+    
+    func parseSoftware(dictionary: [String: AnyObject]) -> SearchResult {
+        let searchResult = SearchResult()
+        
+        searchResult.name = dictionary["trackName"] as! String
+        searchResult.artistName = dictionary["artistName"] as! String
+        searchResult.artworkURL60 = dictionary["artworkUrl60"] as! String
+        searchResult.artworkURL100 = dictionary["artworkUrl100"] as! String
+        searchResult.storeURL = dictionary["trackViewUrl"] as! String
+        searchResult.kind = dictionary["kind"] as! String
+        searchResult.currency = dictionary["currency"] as! String
+        
+        if let price = dictionary["price"] as? Double {
+            searchResult.price = price
+        }
+        if let genre = dictionary["primaryGenreName"] as? String {
+            searchResult.genre = genre
+        }
+        
+        return searchResult
+    }
+    
+    
+    func parseEBook(dictionnary: [String: AnyObject]) -> SearchResult {
+        let searchResult = SearchResult()
+        
+        searchResult.name = dictionnary["trackName"] as! String
+        searchResult.artistName = dictionnary["artistName"] as! String
+        searchResult.artworkURL60 = dictionnary["artworkUrl60"] as! String
+        searchResult.artworkURL100 = dictionnary["artworkUrl100"] as! String
+        searchResult.storeURL = dictionnary["trackViewUrl"] as! String
+        searchResult.kind = dictionnary["kind"] as! String
+        searchResult.currency = dictionnary["currency"] as! String
+        
+        if let price = dictionnary["price"] as? Double {
+            searchResult.price = price
+        }
+        if let genres: AnyObject = dictionnary["genres"] {
+            searchResult.genre = ", ".join(genres as! [String])
         }
         
         return searchResult
@@ -190,6 +264,7 @@ extension SearchViewController: UISearchBarDelegate {
                     println("Dictionary \(dictionary)")
                     
                     searchResults = parseDictionary(dictionary)
+                    searchResults.sort(<)
                     
                     tableView.reloadData()
                     return

@@ -8,6 +8,18 @@
 
 import Foundation
 
+func < (lhs: SearchResult, rhs: SearchResult) -> Bool {
+    return lhs.name.localizedStandardCompare(rhs.name) == NSComparisonResult.OrderedAscending
+}
+
+func > (lhs: SearchResult, rhs: SearchResult) -> Bool {
+    return lhs.name.localizedStandardCompare(rhs.name) == NSComparisonResult.OrderedDescending
+}
+
+func sortByArtistNameASC (lhs: SearchResult, rhs: SearchResult) -> Bool {
+    return lhs.artistName.localizedStandardCompare(rhs.artistName) == NSComparisonResult.OrderedAscending
+}
+
 class SearchResult {
     
 // MARK: - Property
