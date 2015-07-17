@@ -114,14 +114,16 @@ class SearchViewController: UIViewController {
 // MARK: Call NSURLSession
     
     func performSearch() {
-        search.performSearchForText(searchBar.text, category: segmentedControl.selectedSegmentIndex,
-            completion: { success in
-            if !success {
-                self.showNetworkError()
-            }
-                
-            self.tableView.reloadData()
-        })
+        if let category = Search.Category(rawValue: segmentedControl.selectedSegmentIndex) {
+            search.performSearchForText(searchBar.text, category: category,
+                completion: { success in
+                    if !success {
+                        self.showNetworkError()
+                    }
+                    
+                    self.tableView.reloadData()
+            })
+        }
         
         tableView.reloadData()
         searchBar.resignFirstResponder()
@@ -174,37 +176,34 @@ extension SearchViewController: UISearchBarDelegate {
 
 extension SearchViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if search.isLoading {
-            return 1
-        } else if !search.hasSearched {
-            return 0
-        }
-        else if search.searchResults.count == 0 {
-            return 1
-        } else {
-            return search.searchResults.count
+        switch search.state {
+            case .NotSearchedYet: return 0
+            case .Loading: return 1
+            case .NoResults: return 1
+            case .Results(let list): return list.count
         }
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if search.isLoading {
-            let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.loadingCell, forIndexPath: indexPath) as! UITableViewCell
-            let spinner = cell.viewWithTag(100) as! UIActivityIndicatorView
-            spinner.startAnimating()
-            
-            return cell
+        switch search.state {
+            case .NotSearchedYet:
+                fatalError("Should never happen")
+            case .Loading:
+                let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.loadingCell, forIndexPath: indexPath) as! UITableViewCell
+                let spinner = cell.viewWithTag(100) as! UIActivityIndicatorView
+                spinner.startAnimating()
+                
+                return cell
+            case .NoResults:
+                return tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.nothingFoundCell, forIndexPath: indexPath) as! UITableViewCell
+            case .Results(let list):
+                let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.searchResultCell, forIndexPath: indexPath) as! SearchResultCell
+                let searchResult = list[indexPath.row]
+                cell.configureForSearchResult(searchResult)
+                
+                return cell
         }
-        if search.searchResults.count == 0 {
-            return tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.nothingFoundCell, forIndexPath: indexPath) as! UITableViewCell
-        } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.searchResultCell, forIndexPath: indexPath) as! SearchResultCell
-            let searchResult = search.searchResults[indexPath.row]
-            cell.configureForSearchResult(searchResult)
-            
-            return cell
-        }
-    }
     
 }
 

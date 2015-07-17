@@ -12,28 +12,47 @@ class Search {
     
 // MARK: - Property
     
-    var searchResults = [SearchResult]()
-    var hasSearched =   false
-    var isLoading =     false
-    
     private var dataTask: NSURLSessionDataTask? = nil
-  
+    private(set) var state: State = .NotSearchedYet
+    
+    enum Category: Int {
+        case All = 0
+        case Music = 1
+        case Software = 2
+        case EBook = 3
+    
+        var entityName: String {
+            switch self {
+                case .All: return ""
+                case .Music: return "musicTrack"
+                case .Software: return "software"
+                case .EBook: return "ebook"
+            }
+        }
+    }
+    
+    enum State {
+        case NotSearchedYet
+        case Loading
+        case NoResults
+        case Results([SearchResult])
+    }
+    
     
 // MARK: - Exec WebRequest
     
-    func performSearchForText(text: String, category: Int, completion: SearchComplete) {
+    func performSearchForText(text: String, category: Category, completion: SearchComplete) {
         if !text.isEmpty {
             dataTask?.cancel()
             
-            isLoading = true
-            hasSearched = true
-            searchResults = [SearchResult]()
+            state = .Loading
             
             let url = urlWithSearchText(text, category: category)
             
             let session = NSURLSession.sharedSession()
             dataTask = session.dataTaskWithURL(url, completionHandler: { data, response, error in
                 
+                self.state = .NotSearchedYet
                 var success = false
                 
                 if let error = error {
@@ -41,20 +60,16 @@ class Search {
                 } else if let httpResponse = response as? NSHTTPURLResponse {
                     if httpResponse.statusCode == 200 {
                         if let dictionary = self.parseJSON(data) {
-                            self.searchResults = self.parseDictionary(dictionary)
-                            self.searchResults.sort(<)
-                            
-                            println("Succes! ")
-                            self.isLoading = false
+                            var searchResults = self.parseDictionary(dictionary)
+                            if searchResults.isEmpty {
+                                self.state = .NoResults
+                            } else {
+                                searchResults.sort(<)
+                                self.state = .Results(searchResults)
+                            }
                             success = true
-                            //return
                         }
                     }
-                }
-                
-                if !success {
-                    self.isLoading = false
-                    self.hasSearched = false
                 }
                 
                 dispatch_async(dispatch_get_main_queue()) {
@@ -69,16 +84,8 @@ class Search {
     
 // MARK: - Create Url
     
-    private func urlWithSearchText(searchText: String, category: Int) -> NSURL {
-        var entityName: String
-        
-        switch category {
-        case 1: entityName = "musicTrack"
-        case 2: entityName = "software"
-        case 3: entityName = "ebook"
-        default: entityName = ""
-        }
-        
+    private func urlWithSearchText(searchText: String, category: Category) -> NSURL {
+        let entityName = category.entityName
         let escapedSearchText = searchText.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
         let urlString = String(format: "http://itunes.apple.com/search?term=%@&limit=200&entity=%@", escapedSearchText, entityName)
         let url = NSURL(string: urlString)
