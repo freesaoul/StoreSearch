@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8B8315261B5800C900A2DD60 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8315251B5800C900A2DD60 /* UIImageView+DownloadImage.swift */; };
+		8B8315281B58106C00A2DD60 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8315271B58106C00A2DD60 /* DetailViewController.swift */; };
+		8B83152A1B5815FF00A2DD60 /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8315291B5815FF00A2DD60 /* DimmingPresentationController.swift */; };
 		8BD5A5D91B57AB6100C16915 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BD5A5D81B57AB6100C16915 /* LoadingCell.xib */; };
 		8BEB74601B566DD2002A73F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEB745F1B566DD2002A73F5 /* AppDelegate.swift */; };
 		8BEB74621B566DD2002A73F5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEB74611B566DD2002A73F5 /* SearchViewController.swift */; };
@@ -32,6 +34,8 @@
 
 /* Begin PBXFileReference section */
 		8B8315251B5800C900A2DD60 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
+		8B8315271B58106C00A2DD60 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		8B8315291B5815FF00A2DD60 /* DimmingPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DimmingPresentationController.swift; path = ../DimmingPresentationController.swift; sourceTree = "<group>"; };
 		8BD5A5D81B57AB6100C16915 /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		8BEB745A1B566DD2002A73F5 /* StoreSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BEB745E1B566DD2002A73F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				8BEB745F1B566DD2002A73F5 /* AppDelegate.swift */,
+				8B8315291B5815FF00A2DD60 /* DimmingPresentationController.swift */,
 				8BEB74811B5695B7002A73F5 /* Model */,
 				8BEB74831B5695DF002A73F5 /* Controller */,
 				8BEB74821B5695D3002A73F5 /* View */,
@@ -156,6 +161,7 @@
 			children = (
 				8BEB74611B566DD2002A73F5 /* SearchViewController.swift */,
 				8BEB74881B56A30A002A73F5 /* SearchResultCell.swift */,
+				8B8315271B58106C00A2DD60 /* DetailViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -263,8 +269,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BEB74621B566DD2002A73F5 /* SearchViewController.swift in Sources */,
+				8B83152A1B5815FF00A2DD60 /* DimmingPresentationController.swift in Sources */,
 				8BEB74801B5695AE002A73F5 /* SearchResult.swift in Sources */,
 				8BEB74891B56A30A002A73F5 /* SearchResultCell.swift in Sources */,
+				8B8315281B58106C00A2DD60 /* DetailViewController.swift in Sources */,
 				8BEB74601B566DD2002A73F5 /* AppDelegate.swift in Sources */,
 				8B8315261B5800C900A2DD60 /* UIImageView+DownloadImage.swift in Sources */,
 			);
