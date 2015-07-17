@@ -16,6 +16,7 @@
 		8BE85A501B59148B00DB69E4 /* SlideOutAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE85A4F1B59148B00DB69E4 /* SlideOutAnimationController.swift */; };
 		8BE85A521B5918F900DB69E4 /* LandscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE85A511B5918F900DB69E4 /* LandscapeViewController.swift */; };
 		8BE85A541B59378D00DB69E4 /* FadeOutAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE85A531B59378D00DB69E4 /* FadeOutAnimationController.swift */; };
+		8BE85A561B595A9A00DB69E4 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE85A551B595A9A00DB69E4 /* Search.swift */; };
 		8BEB74601B566DD2002A73F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEB745F1B566DD2002A73F5 /* AppDelegate.swift */; };
 		8BEB74621B566DD2002A73F5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEB74611B566DD2002A73F5 /* SearchViewController.swift */; };
 		8BEB74651B566DD2002A73F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BEB74631B566DD2002A73F5 /* Main.storyboard */; };
@@ -47,6 +48,7 @@
 		8BE85A4F1B59148B00DB69E4 /* SlideOutAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideOutAnimationController.swift; sourceTree = "<group>"; };
 		8BE85A511B5918F900DB69E4 /* LandscapeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandscapeViewController.swift; sourceTree = "<group>"; };
 		8BE85A531B59378D00DB69E4 /* FadeOutAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeOutAnimationController.swift; sourceTree = "<group>"; };
+		8BE85A551B595A9A00DB69E4 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		8BEB745A1B566DD2002A73F5 /* StoreSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BEB745E1B566DD2002A73F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BEB745F1B566DD2002A73F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				8BEB74821B5695D3002A73F5 /* View */,
 				8BE85A4A1B59062000DB69E4 /* Custom View */,
 				8B8315241B57FF8600A2DD60 /* Custom IOS Class */,
+				8BE85A551B595A9A00DB69E4 /* Search.swift */,
 				8BEB74661B566DD2002A73F5 /* Images.xcassets */,
 				8BEB745D1B566DD2002A73F5 /* Supporting Files */,
 			);
@@ -292,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BE85A561B595A9A00DB69E4 /* Search.swift in Sources */,
 				8BEB74621B566DD2002A73F5 /* SearchViewController.swift in Sources */,
 				8B83152A1B5815FF00A2DD60 /* DimmingPresentationController.swift in Sources */,
 				8BE85A541B59378D00DB69E4 /* FadeOutAnimationController.swift in Sources */,
