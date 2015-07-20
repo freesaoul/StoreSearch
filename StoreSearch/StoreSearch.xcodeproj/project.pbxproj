@@ -130,12 +130,12 @@
 				8BE85A4D1B590C7900DB69E4 /* BounceAnimationController.swift */,
 				8BE85A4F1B59148B00DB69E4 /* SlideOutAnimationController.swift */,
 				8BE85A531B59378D00DB69E4 /* FadeOutAnimationController.swift */,
+				8BE85A551B595A9A00DB69E4 /* Search.swift */,
 				8BEB74811B5695B7002A73F5 /* Model */,
 				8BEB74831B5695DF002A73F5 /* Controller */,
 				8BEB74821B5695D3002A73F5 /* View */,
 				8BE85A4A1B59062000DB69E4 /* Custom View */,
 				8B8315241B57FF8600A2DD60 /* Custom IOS Class */,
-				8BE85A551B595A9A00DB69E4 /* Search.swift */,
 				8BEB74661B566DD2002A73F5 /* Images.xcassets */,
 				8BEB745D1B566DD2002A73F5 /* Supporting Files */,
 			);

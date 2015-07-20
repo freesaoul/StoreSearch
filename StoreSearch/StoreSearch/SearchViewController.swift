@@ -106,6 +106,9 @@ class SearchViewController: UIViewController {
                     controller.view.removeFromSuperview()
                     controller.removeFromParentViewController()
                     self.landscapeViewController = nil
+                    if self.presentedViewController != nil {
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }
             })
         }
     }
@@ -122,6 +125,9 @@ class SearchViewController: UIViewController {
                     }
                     
                     self.tableView.reloadData()
+                    if let controller = self.landscapeViewController {
+                        controller.searchResultsReceived()
+                    }
             })
         }
         
@@ -145,11 +151,14 @@ class SearchViewController: UIViewController {
 // MARK: - PrepareForSegue
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowDetail" {
-            let detailViewController = segue.destinationViewController as! DetailViewController
-            let indexPath = sender as! NSIndexPath
-            let searchResult = search.searchResults[indexPath.row]
-            detailViewController.searchResult = searchResult
+        switch search.state {
+            case .Results(let list):
+                let detailViewController = segue.destinationViewController as! DetailViewController
+                let indexPath = sender as! NSIndexPath
+                let searchResult = list[indexPath.row]
+                detailViewController.searchResult = searchResult
+            default:
+                break
         }
     }
     
@@ -204,7 +213,7 @@ extension SearchViewController: UITableViewDataSource {
                 
                 return cell
         }
-    
+    }
 }
 
 
@@ -216,14 +225,12 @@ extension SearchViewController: UITableViewDelegate {
         performSegueWithIdentifier("ShowDetail", sender: indexPath)
     }
     
-    
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if search.searchResults.count == 0 || search.isLoading {
-            return nil
-        } else {
-            return indexPath
+        switch search.state {
+            case .NotSearchedYet, .Loading, .NoResults:
+                return nil
+            case .Results:
+                return indexPath
         }
     }
-    
 }
-
