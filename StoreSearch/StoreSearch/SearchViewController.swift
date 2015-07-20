@@ -15,6 +15,7 @@ class SearchViewController: UIViewController {
     let search =    Search()
     
     var landscapeViewController:    LandscapeViewController?
+    weak var splitViewDetail:       DetailViewController?
     
 // MARK: - Constant
     
@@ -50,7 +51,10 @@ class SearchViewController: UIViewController {
         cellNib = UINib(nibName: TableViewCellIdentifiers.loadingCell, bundle: nil)
         tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.loadingCell)
         tableView.rowHeight = 80
-        searchBar.becomeFirstResponder()
+        if UIDevice.currentDevice().userInterfaceIdiom != .Pad {
+            searchBar.becomeFirstResponder()
+        }
+        title = NSLocalizedString("Search", comment: "Split-view master button")
     }
 
 
@@ -159,6 +163,7 @@ class SearchViewController: UIViewController {
                 let indexPath = sender as! NSIndexPath
                 let searchResult = list[indexPath.row]
                 detailViewController.searchResult = searchResult
+                detailViewController.isPopUp = true
             default:
                 break
         }
@@ -223,8 +228,19 @@ extension SearchViewController: UITableViewDataSource {
 
 extension SearchViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        performSegueWithIdentifier("ShowDetail", sender: indexPath)
+        searchBar.resignFirstResponder()
+        
+        if view.window!.rootViewController!.traitCollection.horizontalSizeClass == .Compact {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            performSegueWithIdentifier("ShowDetail", sender: indexPath)
+        } else {
+            switch search.state {
+                case .Results(let list):
+                    splitViewDetail?.searchResult = list[indexPath.row]
+                default:
+                    break
+            }
+        }
     }
     
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {

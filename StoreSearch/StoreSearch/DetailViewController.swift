@@ -12,14 +12,20 @@ class DetailViewController: UIViewController {
 
 // MARK: Property
     
-    var searchResult:   SearchResult!
+    var searchResult:   SearchResult! {
+        didSet {
+            if isViewLoaded() {
+                updateUI()
+            }
+        }
+    }
     var downloadTask:   NSURLSessionDownloadTask?
     enum                AnimationStyle {
         case Slide
         case Fade
     }
     var dismissAnimationStyle = AnimationStyle.Fade
-    
+    var isPopUp = false
     
 // MARK: - IBOutlet
     
@@ -64,19 +70,28 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = UIColor.clearColor()
         view.tintColor = UIColor(red: 20/255, green: 160/255, blue: 160/255, alpha: 1)
         popupView.layer.cornerRadius = 10
         
-        let gestureReconizer = UITapGestureRecognizer(target: self, action: Selector("close"))
-        gestureReconizer.cancelsTouchesInView = false
-        gestureReconizer.delegate = self
-        view.addGestureRecognizer(gestureReconizer)
+        if isPopUp {
+            view.backgroundColor = UIColor.clearColor()
+        
+            let gestureReconizer = UITapGestureRecognizer(target: self, action: Selector("close"))
+            gestureReconizer.cancelsTouchesInView = false
+            gestureReconizer.delegate = self
+            view.addGestureRecognizer(gestureReconizer)
+        } else {
+            view.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground")!)
+            popupView.hidden = true
+            if let displayName = NSBundle.mainBundle().localizedInfoDictionary?["CFBundleDisplayName"] as? String {
+                title = displayName
+            }
+        }
         
         if searchResult != nil {
             updateUI()
         }
+        
     }
     
     func updateUI() {
@@ -109,6 +124,7 @@ class DetailViewController: UIViewController {
         if let url = NSURL(string: searchResult.artworkURL100) {
             downloadTask = artworkImageView.loadImageWithURL(url)
         }
+        popupView.hidden = false
     }
     
 }
