@@ -118,6 +118,15 @@ class SearchViewController: UIViewController {
     }
     
     
+    func hideMasterPane() {
+        UIView.animateWithDuration(0.25, animations: {
+            self.splitViewController!.preferredDisplayMode = .PrimaryHidden
+            }, completion: { _ in
+              self.splitViewController!.preferredDisplayMode = .Automatic
+        })
+    }
+    
+    
 // MARK: Call NSURLSession
     
     func performSearch() {
@@ -239,6 +248,9 @@ extension SearchViewController: UITableViewDelegate {
                     splitViewDetail?.searchResult = list[indexPath.row]
                 default:
                     break
+            }
+            if splitViewController!.displayMode != .AllVisible {
+                hideMasterPane()
             }
         }
     }
